@@ -1,36 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+// void main() {
+//   runApp(const MyApp());
+// }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Live Location Tracker',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        textTheme: GoogleFonts.poppinsTextTheme(),
-        scaffoldBackgroundColor: Colors.white,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.blueAccent,
-          foregroundColor: Colors.white,
-          centerTitle: true,
-          elevation: 2,
-        ),
-      ),
-      home: const TrackingPage(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Live Location Tracker',
+//       theme: ThemeData(
+//         primarySwatch: Colors.blue,
+//         // textTheme: GoogleFonts.poppinsTextTheme(),
+//         scaffoldBackgroundColor: Colors.white,
+//         appBarTheme: const AppBarTheme(
+//           backgroundColor: Colors.blueAccent,
+//           foregroundColor: Colors.white,
+//           centerTitle: true,
+//           elevation: 2,
+//         ),
+//       ),
+//       home: const TrackingPage(),
+//       debugShowCheckedModeBanner: false,
+//     );
+//   }
+// }
 
 class TrackingPage extends StatefulWidget {
   const TrackingPage({super.key});
@@ -88,7 +87,7 @@ class _TrackingPageState extends State<TrackingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Live Location Tracker"),
+        title: Text("Location Tracker"),
       ),
       body: Stack(
         children: [
