@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tugas3_tpm/components/button_menu.dart';
 import 'package:tugas3_tpm/pages/anggota_page.dart';
+import 'package:tugas3_tpm/pages/rekomendasi_page.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key, required this.username});
@@ -43,6 +44,9 @@ class _DashboardPageState extends State<DashboardPage> {
               const SizedBox(height: 40),
               MenuButton(
                   label: 'Team', targetPage: AnggotaPage(), icon: Icons.people),
+              const SizedBox(height: 20),
+              MenuButton(
+                  label: 'Situs', targetPage: RekomendasiPage(), icon: Icons.movie),
               const SizedBox(height: 20),
             ],
           ),

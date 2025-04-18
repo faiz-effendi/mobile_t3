@@ -13,9 +13,14 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  shared_preferences: ^2.0.15
   flutter_lints: ^5.0.0
 
 flutter:
   uses-material-design: true
   assets:
   - assets/images/person1.jpg
+  - assets/images/google.png
+  - assets/images/youtube.png
+  - assets/images/facebook.png
+  - assets/images/twitter.jpg
