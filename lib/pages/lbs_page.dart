@@ -40,7 +40,7 @@ class TrackingPage extends StatefulWidget {
 
 class _TrackingPageState extends State<TrackingPage> {
   GoogleMapController? _mapController;
-  LatLng _currentPosition = const LatLng(-6.200000, 106.816666); // Jakarta
+  LatLng _currentPosition = const LatLng(-6.200000, 106.816666); // default location, Jakarta
   Marker? _userMarker;
   String? latText;
   String? longText;

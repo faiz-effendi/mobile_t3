@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tugas3_tpm/components/button_menu.dart';
-import 'package:tugas3_tpm/pages/anggota_page.dart';
+import '../components/button_menu.dart';
+import './lbs_page.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key, required this.username});
@@ -42,7 +42,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   textAlign: TextAlign.center),
               const SizedBox(height: 40),
               MenuButton(
-                  label: 'Team', targetPage: AnggotaPage(), icon: Icons.people),
+                  label: 'Location Tracker', targetPage: TrackingPage(), icon: Icons.people),
               const SizedBox(height: 20),
             ],
           ),
