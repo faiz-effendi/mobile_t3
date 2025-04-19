@@ -1,4 +1,3 @@
-// stopwatch_page.dart
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +12,8 @@ class StopwatchPage extends StatefulWidget {
 class _StopwatchPageState extends State<StopwatchPage> {
   late Stopwatch stopwatch;
   late Timer t;
+  List<String> flags = []; // List to hold the flags
+  bool isRunning = false;
 
   void handleStartStop() {
     if (stopwatch.isRunning) {
@@ -20,23 +21,34 @@ class _StopwatchPageState extends State<StopwatchPage> {
     } else {
       stopwatch.start();
     }
+    setState(() {
+      isRunning = stopwatch.isRunning;
+    });
   }
 
   String returnFormattedText() {
     var milli = stopwatch.elapsed.inMilliseconds;
 
-    String milliseconds = (milli % 1000).toString().padLeft(3, "0"); // this one for the milliseconds
-    String seconds = ((milli ~/ 1000) % 60).toString().padLeft(2, "0"); // this is for the second
-    String minutes = ((milli ~/ 1000) ~/ 60).toString().padLeft(2, "0"); // this is for the minute
+    String milliseconds = (milli % 1000).toString().padLeft(3, "0"); // for milliseconds
+    String seconds = ((milli ~/ 1000) % 60).toString().padLeft(2, "0"); // for seconds
+    String minutes = ((milli ~/ 1000) ~/ 60).toString().padLeft(2, "0"); // for minutes
 
     return "$minutes:$seconds:$milliseconds";
+  }
+
+  // Function to add flag
+  void addFlag() {
+    var milli = stopwatch.elapsed.inMilliseconds;
+    String flagTime = returnFormattedText();
+    setState(() {
+      flags.add("Flag at $flagTime");
+    });
   }
 
   @override
   void initState() {
     super.initState();
     stopwatch = Stopwatch();
-
     t = Timer.periodic(Duration(milliseconds: 30), (timer) {
       setState(() {});
     });
@@ -79,6 +91,9 @@ class _StopwatchPageState extends State<StopwatchPage> {
               CupertinoButton(
                 onPressed: () {
                   stopwatch.reset();
+                  setState(() {
+                    flags.clear(); // Clear flags on reset
+                  });
                 },
                 padding: EdgeInsets.all(0),
                 child: Text(
@@ -89,6 +104,28 @@ class _StopwatchPageState extends State<StopwatchPage> {
                   ),
                 ),
               ),
+              SizedBox(height: 20),
+              CupertinoButton(
+                onPressed: () {
+                  if (isRunning) {
+                    addFlag();
+                  }
+                },
+                padding: EdgeInsets.all(0),
+                child: Text(
+                  "Flag",
+                  style: TextStyle(
+                    color: Colors.green,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              SizedBox(height: 30),
+              // Display list of flags
+              if (flags.isNotEmpty) 
+                Column(
+                  children: flags.map((flag) => Text(flag)).toList(),
+                ),
             ],
           ),
         ),

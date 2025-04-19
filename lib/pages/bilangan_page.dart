@@ -103,7 +103,6 @@ class _JenisBilanganPageState extends State<JenisBilanganPage> {
               controller: _numberController,
               keyboardType: TextInputType.number,
               inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly, // Allows only digits
                 LengthLimitingTextInputFormatter(12),  // Limits input length to 12 characters
               ],
               decoration: const InputDecoration(

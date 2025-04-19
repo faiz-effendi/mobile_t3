@@ -13,8 +13,9 @@ class _TimeConversionPageState extends State<TimeConversionPage> {
   String _result = "";
 
   void _convertTime() {
-    // Get the value entered by the user
-    double years = double.tryParse(_yearController.text) ?? 0;
+    // Get the value entered by the user and replace any commas with periods
+    String inputText = _yearController.text.replaceAll(',', '.');
+    double years = double.tryParse(inputText) ?? 0;
 
     // Convert years to seconds, minutes, and hours
     double seconds = years * 365.25 * 24 * 60 * 60;  // Approximate calculation
@@ -48,13 +49,19 @@ class _TimeConversionPageState extends State<TimeConversionPage> {
               controller: _yearController,
               keyboardType: TextInputType.number, // Set keyboard type to number only
               inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly, // Allows only digits
                 LengthLimitingTextInputFormatter(12),  // Limits input length to 12 characters
               ],
               decoration: const InputDecoration(
                 labelText: "Tahun",
                 border: OutlineInputBorder(),
               ),
+              onChanged: (value) {
+                // Automatically replace commas with periods as the user types
+                if (value.contains(',')) {
+                  _yearController.text = value.replaceAll(',', '.');
+                  _yearController.selection = TextSelection.collapsed(offset: _yearController.text.length);
+                }
+              },
             ),
             const SizedBox(height: 20),
             ElevatedButton(
