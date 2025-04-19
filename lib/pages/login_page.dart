@@ -22,13 +22,13 @@ class _LoginPageState extends State<LoginPage> {
         appBar: AppBar(
           title: const Text('Login Page'),
         ),
-        body: Form(
-          key: formkey,
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(26.0),
-              child: SizedBox(
-                height: 450,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(26.0),
+            child: SizedBox(
+              height: 550,
+              child: Form(
+                key: formkey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -117,6 +117,27 @@ class _LoginPageState extends State<LoginPage> {
                         child: const Text('Login'),
                       ),
                     ),
+                    // "Login as Guest" Button
+                    SizedBox(height: 10.0),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Navigate to Dashboard as Guest
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return DashboardPage(
+                              username: 'Guest', // Provide "Guest" username
+                            );
+                          }));
+                        },
+                        child: const Text('Login as Guest'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.grey, // Use backgroundColor instead of primary
+                        ),
+                      ),
+                    )
+
                   ],
                 ),
               ),
