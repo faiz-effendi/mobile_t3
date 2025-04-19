@@ -20,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Login Pagegfgkfg'),
+          title: const Text('Login Page'),
         ),
         body: SingleChildScrollView(
           child: Padding(
