@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import '../components/button_menu.dart';
+
+import './stopwatch_page.dart';
 import './lbs_page.dart';
+import './konversi_page.dart';
+import './bilangan_page.dart';
+import './rekomendasi_page.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key, required this.username});
@@ -42,7 +47,19 @@ class _DashboardPageState extends State<DashboardPage> {
                   textAlign: TextAlign.center),
               const SizedBox(height: 40),
               MenuButton(
+                  label: 'Bilangan', targetPage: JenisBilanganPage(), icon: Icons.people),
+              const SizedBox(height: 20),
+              MenuButton(
+                  label: 'Time Conversion', targetPage: TimeConversionPage(), icon: Icons.people),
+              const SizedBox(height: 20),
+              MenuButton(
+                  label: 'Stopwatch', targetPage: StopwatchPage(), icon: Icons.people),
+              const SizedBox(height: 20),
+              MenuButton(
                   label: 'Location Tracker', targetPage: TrackingPage(), icon: Icons.people),
+              const SizedBox(height: 20),
+              MenuButton(
+                  label: 'Recomendation Sites', targetPage: RekomendasiPage(), icon: Icons.web),
               const SizedBox(height: 20),
             ],
           ),
