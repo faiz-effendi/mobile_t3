@@ -59,7 +59,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   label: 'Location Tracker', targetPage: TrackingPage(), icon: Icons.people),
               const SizedBox(height: 20),
               MenuButton(
-                  label: 'Recomendation Sites', targetPage: RekomendasiPage(), icon: Icons.web),
+                  label: 'Recomendation Sites', targetPage: RekomendasiPage(username: widget.username), icon: Icons.web),
               const SizedBox(height: 20),
             ],
           ),
