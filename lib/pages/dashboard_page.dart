@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tugas3_tpm/pages/anggota_page.dart';
+import 'package:tugas3_tpm/pages/bantuan_page.dart';
 import '../components/button_menu.dart';
 
 import './stopwatch_page.dart';
@@ -47,20 +49,28 @@ class _DashboardPageState extends State<DashboardPage> {
                   textAlign: TextAlign.center),
               const SizedBox(height: 40),
               MenuButton(
-                  label: 'Bilangan', targetPage: JenisBilanganPage(), icon: Icons.people),
+                  label: 'Bilangan', targetPage: JenisBilanganPage(), icon: Icons.numbers),
               const SizedBox(height: 20),
               MenuButton(
-                  label: 'Time Conversion', targetPage: TimeConversionPage(), icon: Icons.people),
+                  label: 'Time Conversion', targetPage: TimeConversionPage(), icon: Icons.date_range),
               const SizedBox(height: 20),
               MenuButton(
-                  label: 'Stopwatch', targetPage: StopwatchPage(), icon: Icons.people),
+                  label: 'Stopwatch', targetPage: StopwatchPage(), icon: Icons.watch),
               const SizedBox(height: 20),
               MenuButton(
-                  label: 'Location Tracker', targetPage: TrackingPage(), icon: Icons.people),
+                  label: 'Location Tracker', targetPage: TrackingPage(), icon: Icons.location_on),
               const SizedBox(height: 20),
               MenuButton(
-                  label: 'Recomendation Sites', targetPage: RekomendasiPage(username: widget.username), icon: Icons.web),
+                  label: 'Recomendation Sites', targetPage: RekomendasiPage(username: widget.username), icon: Icons.web ),
               const SizedBox(height: 20),
+              MenuButton(
+                  label: 'Bantuan', 
+                  targetPage: BantuanPage(), icon: Icons.help),
+              const SizedBox(height: 20),
+              MenuButton(
+                  label: 'Bantuan', 
+                  targetPage: AnggotaPage(), icon: Icons.people),
+             const SizedBox(height: 20),  
             ],
           ),
         ),

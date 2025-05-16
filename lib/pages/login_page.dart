@@ -109,6 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                       controller: _password,
                       obscureText: _isObscure,
                       decoration: InputDecoration(
+                        fillColor: Colors.green,
                         prefixIcon: const Icon(Icons.lock),
                         border: const OutlineInputBorder(),
                         labelText: "Password",

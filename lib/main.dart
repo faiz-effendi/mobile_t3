@@ -14,7 +14,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 255, 221, 0),
         appBarTheme: const AppBarTheme(
           backgroundColor: Color.fromARGB(255, 106, 40, 160),
           foregroundColor: Color.fromARGB(255, 255, 255, 255),
@@ -24,7 +24,7 @@ class MainApp extends StatelessWidget {
             color: Color.fromARGB(255, 0, 0, 0), // Warna teks label
           ),
           filled: true,
-          fillColor: Color.fromARGB(255, 255, 255, 255), // Warna background TextField
+          fillColor: Color.fromARGB(255, 255, 0, 0), // Warna background TextField
           hintStyle: TextStyle(
             color: Color.fromARGB(255, 0, 0, 0), // Warna teks hint
           ),
