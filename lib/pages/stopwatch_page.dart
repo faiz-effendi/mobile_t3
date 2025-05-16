@@ -38,7 +38,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
 
   // Function to add flag
   void addFlag() {
-    var milli = stopwatch.elapsed.inMilliseconds;
+    // var milli = stopwatch.elapsed.inMilliseconds;
     String flagTime = returnFormattedText();
     setState(() {
       flags.add("Flag at $flagTime");

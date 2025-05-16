@@ -14,7 +14,7 @@ class RekomendasiPage extends StatefulWidget {
 class _RekomendasiPageState extends State<RekomendasiPage> {
   // Data untuk tabel dengan status favorit
   final List<Map<String, dynamic>> websites = [
-    {'name': 'Google', 'url': 'https://www.google.com', 'logo': 'google.png', 'isFavorite': false},
+    {'name': 'Google', 'url': 'https://www.google.co.id/?hl=id', 'logo': 'google.png', 'isFavorite': false},
     {'name': 'YouTube', 'url': 'https://www.youtube.com', 'logo': 'youtube.png', 'isFavorite': false},
     {'name': 'Facebook', 'url': 'https://www.facebook.com', 'logo': 'facebook.png', 'isFavorite': false},
     {'name': 'Twitter', 'url': 'https://www.twitter.com', 'logo': 'twitter.jpg', 'isFavorite': false},
@@ -89,7 +89,7 @@ class _RekomendasiPageState extends State<RekomendasiPage> {
                           );
                         }
                       },
-                      child: ListTile(
+                                            child: ListTile(
                         contentPadding: const EdgeInsets.all(10),
                         leading: Image.asset(
                           'assets/images/${websites[index]['logo']}',
@@ -104,6 +104,10 @@ class _RekomendasiPageState extends State<RekomendasiPage> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        subtitle: Text(
+                          websites[index]['url']!, // Tampilkan URL di bawah nama
+                          style: const TextStyle(fontSize: 14, color: Colors.blueGrey),
+                        ),
                         trailing: IconButton(
                           icon: Icon(
                             websites[index]['isFavorite']
@@ -113,7 +117,6 @@ class _RekomendasiPageState extends State<RekomendasiPage> {
                           ),
                           onPressed: () => toggleFavorite(widget.username, index),
                         ),
-                        
                       ),
                     ),
                   );

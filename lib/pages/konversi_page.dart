@@ -47,16 +47,15 @@ class _TimeConversionPageState extends State<TimeConversionPage> {
             ),
             TextField(
               controller: _yearController,
-              keyboardType: TextInputType.number, // Set keyboard type to number only
+              keyboardType: TextInputType.number, 
               inputFormatters: [
-                LengthLimitingTextInputFormatter(12),  // Limits input length to 12 characters
+                LengthLimitingTextInputFormatter(10), 
               ],
               decoration: const InputDecoration(
                 labelText: "Tahun",
                 border: OutlineInputBorder(),
               ),
               onChanged: (value) {
-                // Automatically replace commas with periods as the user types
                 if (value.contains(',')) {
                   _yearController.text = value.replaceAll(',', '.');
                   _yearController.selection = TextSelection.collapsed(offset: _yearController.text.length);
@@ -65,7 +64,16 @@ class _TimeConversionPageState extends State<TimeConversionPage> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: _convertTime,
+              onPressed: () {
+                String inputText = _yearController.text.replaceAll(',', '.');
+                if (inputText.isEmpty || double.tryParse(inputText) == null) {
+                  setState(() {
+                    _result = "Input tidak valid. Masukkan angka yang benar.";
+                  });
+                  return;
+                }
+                _convertTime();
+              },
               child: const Text("Konversi"),
             ),
             const SizedBox(height: 20),
