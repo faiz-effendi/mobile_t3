@@ -68,7 +68,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   targetPage: BantuanPage(), icon: Icons.help),
               const SizedBox(height: 20),
               MenuButton(
-                  label: 'Bantuan', 
+                  label: 'Anggota', 
                   targetPage: AnggotaPage(), icon: Icons.people),
              const SizedBox(height: 20),  
             ],
