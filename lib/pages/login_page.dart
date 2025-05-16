@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tugas3_tpm/pages/dashboard_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -12,8 +13,52 @@ class _LoginPageState extends State<LoginPage> {
   final formkey = GlobalKey<FormState>();
   final _username = TextEditingController();
   final _password = TextEditingController();
-  bool _isLogin = false;
   bool _isObscure = true;
+
+  // Dummy accounts
+  final List<Map<String, String>> dummyAccounts = [
+    {'username': 'admin', 'password': '123'},
+    {'username': 'abraar', 'password': '123'},
+  ];
+
+  // Save login state to SharedPreferences
+  Future<void> saveLoginState(String username) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isLoggedIn', true);
+    await prefs.setString('username', username);
+  }
+
+  // Validate login
+  void validateLogin() async {
+    if (formkey.currentState!.validate()) {
+      final inputUsername = _username.text;
+      final inputPassword = _password.text;
+
+      // Check if the input matches any dummy account
+      final account = dummyAccounts.firstWhere(
+        (account) =>
+            account['username'] == inputUsername &&
+            account['password'] == inputPassword,
+        orElse: () => {},
+      );
+
+      if (account.isNotEmpty) {
+        // Save login state and navigate to Dashboard
+        await saveLoginState(inputUsername);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Login Berhasil')),
+        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return DashboardPage(username: inputUsername);
+        }));
+      } else {
+        // Show error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Username atau Password Salah')),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,21 +77,17 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text('Selamat datang di Tugas 3 TPM AFA'),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    CircleAvatar(
+                    const Text('Selamat datang di Tugas 3 TPM AFA'),
+                    const SizedBox(height: 20.0),
+                    const CircleAvatar(
                       backgroundImage: AssetImage('assets/images/person1.jpg'),
                       radius: 100,
                     ),
-                    SizedBox(
-                      height: 20.0,
-                    ),
+                    const SizedBox(height: 20.0),
                     TextFormField(
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return "kosong cuy";
+                          return "Username tidak boleh kosong";
                         }
                         return null;
                       },
@@ -57,11 +98,11 @@ class _LoginPageState extends State<LoginPage> {
                         prefixIcon: Icon(Icons.person),
                       ),
                     ),
-                    SizedBox(height: 2.0),
+                    const SizedBox(height: 2.0),
                     TextFormField(
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return "kosong cuy";
+                          return "Password tidak boleh kosong";
                         }
                         return null;
                       },
@@ -83,42 +124,15 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 18.0),
+                    const SizedBox(height: 18.0),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () {
-                          if (formkey.currentState!.validate()) {
-                            if (_username.text == '123' &&
-                                _password.text == '123') {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Login Berhasil'),
-                                ),
-                              );
-                              setState(() {
-                                _isLogin = true;
-                              });
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return DashboardPage(
-                                  username: _username.text,
-                                );
-                              }));
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Username atau Password Salah'),
-                                ),
-                              );
-                            }
-                          }
-                        },
+                        onPressed: validateLogin,
                         child: const Text('Login'),
                       ),
                     ),
-                    // "Login as Guest" Button
-                    SizedBox(height: 10.0),
+                    const SizedBox(height: 10.0),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
@@ -133,11 +147,10 @@ class _LoginPageState extends State<LoginPage> {
                         },
                         child: const Text('Login as Guest'),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey, // Use backgroundColor instead of primary
+                          backgroundColor: Colors.grey,
                         ),
                       ),
-                    )
-
+                    ),
                   ],
                 ),
               ),

@@ -12,75 +12,70 @@ class _JenisBilanganPageState extends State<JenisBilanganPage> {
   final TextEditingController _numberController = TextEditingController();
   String _result = "";
 
-  // Function to check if the number is prime (only for integers)
-  bool isPrime(int number) {
-    if (number <= 1) {
-      return false;
-    }
-    for (int i = 2; i <= number / 2; i++) {
-      if (number % i == 0) {
-        return false;
-      }
+  // Fungsi mengecek angka prima
+  bool isPrima(int number) {
+    if (number <= 1) return false;
+    for (int i = 2; i <= number ~/ 2; i++) {
+      if (number % i == 0) return false;
     }
     return true;
   }
 
-  // Function to check if the number is positive or negative
-  String positiveOrNegative(double number) {
-    if (number > 0) {
-      return 'Bulat Positif';
-    } else if (number < 0) {
-      return 'Bulat Negatif';
-    } else {
-      return 'Nol (Bukan Positif atau Negatif)';
-    }
-  }
-
-  // Function to check if the number is an integer
-  bool isInteger(double number) {
-    return number == number.toInt();
-  }
-
-  // Function to check if the number is a whole number (Cacah)
-  bool isCacah(double number) {
-    return number >= 0 && number == number.toInt();
-  }
-
-  // Function to handle comma input (replace comma with dot for decimals)
-  double parseNumber(String input) {
+  bool isPositive(double number) => number > 0;
+  bool isNegative(double number) => number < 0;
+  bool isZero(double number) => number == 0;
+  bool isBulat(double number) => number == number.toInt();
+  bool isCacah(double number) => number >= 0 && number == number.toInt();
+  double? parseNumber(String input) {
     String processedInput = input.replaceAll(',', '.');
-    return double.tryParse(processedInput) ?? 0;
+    final validNumberRegExp = RegExp(r'^-?\d+(\.\d+)?$');
+    if (!validNumberRegExp.hasMatch(processedInput)) return null;
+    return double.tryParse(processedInput);
   }
 
-  // Determine the type of number based on user input
+  // Menentukan jenis bilangan berdasarkan input
   void _checkNumberType() {
-    double inputNumber = parseNumber(_numberController.text);
+    String rawInput = _numberController.text.trim();
+    if (rawInput.isEmpty) {
+      setState(() {
+        _result = "Masukkan sebuah angka";
+      });
+      return;
+    }
+
+    double? inputNumber = parseNumber(rawInput);
+    if (inputNumber == null) {
+      setState(() {
+        _result = "Input tidak valid. Masukkan angka yang benar (contoh: -5, 3.14, 0)";
+      });
+      return;
+    }
+
+    String signType = '';
+    if (isPositive(inputNumber)) {
+      signType = 'Positif';
+    } else if (isNegative(inputNumber)) {
+      signType = 'Negatif';
+    } else {
+      signType = 'Nol';
+    }
+
+    String result = '';
+    if (isBulat(inputNumber)) {
+      int intNumber = inputNumber.toInt();
+      result = 'Angka ini adalah Bulat $signType: $intNumber';
+      if (isPrima(intNumber) && intNumber > 0) {
+        result += "\nAngka ini adalah Bilangan Prima!";
+      }
+      if (isCacah(inputNumber)) {
+        result += "\nAngka ini juga termasuk Cacah!";
+      }
+    } else {
+      result = 'Angka ini adalah Desimal $signType: $inputNumber';
+    }
 
     setState(() {
-      if (_numberController.text.isEmpty) {
-        _result = "Masukkan sebuah angka";
-        return;
-      }
-
-      if (isInteger(inputNumber)) {
-        int intNumber = inputNumber.toInt();
-        if (intNumber <= 0) {
-          _result = "Angka ini adalah ${positiveOrNegative(inputNumber)}";
-        } else if (intNumber == 0) {
-          _result = "Angka ini adalah Cacah (0)";
-        } else {
-          _result = "Angka ini adalah Bulat Positif: $intNumber";
-          if (isPrime(intNumber)) {
-            _result += "\nAngka ini adalah Bilangan Prima!";
-          }
-        }
-      } else {
-        _result = "Angka ini adalah Decimal: $inputNumber";
-      }
-
-      if (isCacah(inputNumber)) {
-        _result += "\nAngka ini juga termasuk Cacah!";
-      }
+      _result = result.trim();
     });
   }
 
@@ -101,9 +96,9 @@ class _JenisBilanganPageState extends State<JenisBilanganPage> {
             ),
             TextField(
               controller: _numberController,
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.numberWithOptions(decimal: true, signed: true),
               inputFormatters: [
-                LengthLimitingTextInputFormatter(12),  // Limits input length to 12 characters
+                LengthLimitingTextInputFormatter(10),
               ],
               decoration: const InputDecoration(
                 labelText: "Angka",

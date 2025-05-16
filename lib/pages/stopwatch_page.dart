@@ -49,7 +49,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
   void initState() {
     super.initState();
     stopwatch = Stopwatch();
-    t = Timer.periodic(Duration(milliseconds: 30), (timer) {
+    t = Timer.periodic(Duration(), (timer) {
       setState(() {});
     });
   }
@@ -57,11 +57,15 @@ class _StopwatchPageState extends State<StopwatchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Stopwatch'),
+      ),
       body: SafeArea(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(height: 50),
               CupertinoButton(
                 onPressed: () {
                   handleStartStop();
@@ -73,7 +77,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: Color(0xff0395eb),
+                      color: Color.fromARGB(255, 106, 40, 160),
                       width: 4,
                     ),
                   ),
@@ -92,7 +96,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
                 onPressed: () {
                   stopwatch.reset();
                   setState(() {
-                    flags.clear(); // Clear flags on reset
+                    flags.clear();
                   });
                 },
                 padding: EdgeInsets.all(0),
@@ -101,6 +105,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
                   style: TextStyle(
                     color: Colors.red,
                     fontWeight: FontWeight.bold,
+                    fontSize: 24,
                   ),
                 ),
               ),
@@ -117,15 +122,28 @@ class _StopwatchPageState extends State<StopwatchPage> {
                   style: TextStyle(
                     color: Colors.green,
                     fontWeight: FontWeight.bold,
+                    fontSize: 24,
                   ),
                 ),
               ),
               SizedBox(height: 30),
-              // Display list of flags
-              if (flags.isNotEmpty) 
-                Column(
-                  children: flags.map((flag) => Text(flag)).toList(),
-                ),
+              // Expanded scrollable flag list
+              Expanded(
+                child: flags.isNotEmpty
+                    ? ListView(
+                        children: flags
+                            .map((flag) => Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 2.0),
+                                  child: Text(
+                                    flag,
+                                    style: TextStyle(fontSize: 20),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ))
+                            .toList(),
+                      )
+                    : Container(),
+              ),
             ],
           ),
         ),
