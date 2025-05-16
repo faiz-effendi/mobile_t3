@@ -14,8 +14,8 @@ class RekomendasiPage extends StatefulWidget {
 class _RekomendasiPageState extends State<RekomendasiPage> {
   // Data untuk tabel dengan status favorit
   final List<Map<String, dynamic>> websites = [
-    {'name': 'Google', 'url': 'https://www.google.co.id/?hl=id', 'logo': 'google.png', 'isFavorite': false},
-    {'name': 'YouTube', 'url': 'https://www.youtube.com', 'logo': 'youtube.png', 'isFavorite': false},
+    {'name': 'Google', 'url': 'https://www.google.co.id/?hl=id', 'logo': 'google.jpg', 'isFavorite': false},
+    {'name': 'YouTube', 'url': 'https://www.youtube.com', 'logo': 'youtube.jpg', 'isFavorite': false},
     {'name': 'Facebook', 'url': 'https://www.facebook.com', 'logo': 'facebook.png', 'isFavorite': false},
     {'name': 'Twitter', 'url': 'https://www.twitter.com', 'logo': 'twitter.jpg', 'isFavorite': false},
   ];

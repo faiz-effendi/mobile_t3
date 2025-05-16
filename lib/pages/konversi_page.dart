@@ -13,12 +13,10 @@ class _TimeConversionPageState extends State<TimeConversionPage> {
   String _result = "";
 
   void _convertTime() {
-    // Get the value entered by the user and replace any commas with periods
     String inputText = _yearController.text.replaceAll(',', '.');
     double years = double.tryParse(inputText) ?? 0;
 
-    // Convert years to seconds, minutes, and hours
-    double seconds = years * 365.25 * 24 * 60 * 60;  // Approximate calculation
+    double seconds = years * 365.25 * 24 * 60 * 60;
     double minutes = seconds / 60;
     double hours = minutes / 60;
 
